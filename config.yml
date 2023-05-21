@@ -1,4 +1,4 @@
-baseURL: '/'
+baseURL: ''
 title: 'Wouters Ramblings'
 theme: "PaperMod"
 
@@ -36,8 +36,11 @@ params:
   showtoc: false
   tocopen: false
 
-menu:
-  main:
+  mainSections:
+    - posts
+
+#menu:
+#  main:
 #    - identifier: categories
 #      name: categories
 #      url: /categories/
@@ -46,10 +49,10 @@ menu:
 #      name: tags
 #      url: /tags/
 #      weight: 20
-    - identifier: home
-      name: woutervb.net
-      url: https://woutervb.net
-      weight: 30
+#    - identifier: home
+#      name: woutervb.net
+#      url: https://woutervb.net
+#      weight: 30
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
 markup:
@@ -60,3 +63,26 @@ markup:
     # guessSyntax: true
     # lineNos: true
     # style: monokai
+privacy:
+    vimeo:
+        disabled: false
+        simple: true
+
+    twitter:
+        disabled: false
+        enableDNT: true
+        simple: true
+
+    instagram:
+        disabled: false
+        simple: true
+
+    youtube:
+        disabled: false
+        privacyEnhanced: true
+
+services:
+    instagram:
+        disableInlineCSS: true
+    twitter:
+        disableInlineCSS: true
