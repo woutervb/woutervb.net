@@ -2,6 +2,7 @@
 title: "Naming of Services"
 date: 2023-05-23T16:43:07+10:00
 draft: false
+tags: ["naming", "software development", "software", "development"]
 ---
 
 This is the eternal discussion, should services be functionally named, or given abstract, possible descriptive, names? 
