@@ -11,6 +11,12 @@ minify:
   disableXML: true
   minifyOutput: true
 
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
 params:
   title: 'Wouters Ramblings'
   env: production
@@ -33,26 +39,36 @@ params:
   comments: true
   hidemeta: false
   hideSummary: false
-  showtoc: false
-  tocopen: false
+  showtoc: true
+  tocopen: true
 
   mainSections:
     - posts
 
-#menu:
-#  main:
-#    - identifier: categories
-#      name: categories
-#      url: /categories/
-#      weight: 10
-#    - identifier: tags
-#      name: tags
-#      url: /tags/
-#      weight: 20
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+menu:
+  main:
+    - identifier: archives
+      name: archives
+      url: /archives/
+      weight: 10
+    - identifier: search
+      name: search
+      url: /search/
+      weight: 20
 #    - identifier: home
 #      name: woutervb.net
 #      url: https://woutervb.net
 #      weight: 30
+
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
 markup:
