@@ -22,7 +22,6 @@ params:
   env: production
   author: Me
   keywords: [Blog, snippets, hugo]
-  DateFormat: "January 2, 2023"
   defaultTheme: auto
   disableThemeToggle: false
 
