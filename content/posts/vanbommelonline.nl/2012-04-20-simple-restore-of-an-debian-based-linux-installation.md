@@ -30,8 +30,8 @@ To overcome this problem I started creating a small piece of code (and placed it
   1. make a listing of all package files installed
   2. for every package file check if the configuration files are changed in relation to the packager provided ones
   3. for some special packages check the configuration files and include any referenced locations
-  4. Combine the above information to a &#8216;restore&#8217; script. This script will contain all information to reinstall the packages and configuration, based on this information. The only requirement is a basic bootable (compatible) OS installation.
-  5. Optionally this can be used to update a systtem to a newer version, using a clean installation.
+  4. Combine the above information to a 'restore' script. This script will contain all information to reinstall the packages and configuration, based on this information. The only requirement is a basic bootable (compatible) OS installation.
+  5. Optionally this can be used to update a system to a newer version, using a clean installation.
 
 For those interested, have a peek at the work-in-progress on github:  
-<https://github.com/woutervb/deb-dr>
+https://github.com/woutervb/deb-dr

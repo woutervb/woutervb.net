@@ -22,14 +22,19 @@ categories:
 ---
 Apache can be configured as a reverse proxy, using the mod\_proxy and mod\_proxy_http modules.
 
-Using mod_rewrite it is possible to create a simple method to proxy http requests based on the hostname. This does assume that there is a logical (programmatical) relation between the hostname used on the proxy and the hostname of the system that is intended to be reached.
+Using mod_rewrite it is possible to create a simple method to proxy http requests based on the hostname. This does assume that there is a logical (programmatically) relation between the hostname used on the proxy and the hostname of the system that is intended to be reached.
 
 We can create a mapping like the one below:
 
-<pre>system1.pre-proxy =&gt; system1.realwebserver:8080<br />system2.pre-proxy =&gt; system2.realwebserver:8080</pre>
+    system1.pre-proxy => system1.realwebserver:8080
+    system2.pre-proxy => system2.realwebserver:8080
 
-In the above example we arrange dns in such a way that all requests pointing to the domein .pre-proxy land on our machine running apache (with the setup mentioned below) and that the domein realwebserver points to the real systems.
+In the above example we arrange dns in such a way that all requests pointing to the domain .pre-proxy land on our machine running apache (with the setup mentioned below) and that the domain realwebserver points to the real systems.
 
-The config snipped &nbsp;required on apache to get this running is:
+The config snipped required on apache to get this running is:
 
-<pre>&lt;VirtualHost *:80&gt;<br />RewriteEngine On<br />RewriteCond %{HTTP_HOST} ^(.*).pre-proxy<br />RewriteRule ^/(.*) http://%1.realwebserver:8080/$1 [P]<br />&lt;/VirtualHost&gt;<br /><br /></pre>
+    <VirtualHost *:80>
+      RewriteEngine On
+      RewriteCond %{HTTP_HOST} ^(.*).pre-proxy
+      RewriteRule ^/(.*) http://%1.realwebserver:8080/$1 [P
+    </VirtualHost>

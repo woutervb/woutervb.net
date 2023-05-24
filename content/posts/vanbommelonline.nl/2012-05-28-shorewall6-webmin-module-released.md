@@ -21,10 +21,10 @@ categories:
   - ubuntu
   - webmin
 ---
-After a few days of hacking the sourcecode I am proud to provide you all with a shorewall6 module for webmin.  
+After a few days of hacking the source-code I am proud to provide you all with a shorewall6 module for webmin.  
 This module (rev 1) is included in the main development stream of webmin. The current version (rev 2) has been submitted moments ago.
 
-The development takes place using webmin and can be found here:&nbsp;<https://github.com/woutervb/webmin>.
+The development takes place using webmin and can be found here <https://github.com/woutervb/webmin>.
 
 But obviously one can also wait for the next webmin release to appear or use the main development branch from webmin itself (<https://github.com/webmin/webmin>).
 

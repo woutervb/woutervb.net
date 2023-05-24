@@ -21,16 +21,16 @@ categories:
 ---
 Some people already found out the hard way that simply changing the /etc/fstab to make the root filesystem use the journal writeback modus will break the system.
 
-The trick to enable this feature is relative simple and involves 1 aditional step to editing the /etc/fstab
+The trick to enable this feature is relative simple and involves 1 additional step to editing the /etc/fstab
 
 Lets use the below /etc/fstab snippet to illustrate the steps involved
 
-<pre>/dev/sda5 / defaults 0 0</pre>
+    /dev/sda5 / defaults 0 0
 
 We change this /etc/fstab snippet to:
 
-<pre>/dev/sda5 / data=writeback 0 0</pre>
+    /dev/sda5 / data=writeback 0 0
 
 And we execute the following command:
 
-<pre>tune2fs -O journal_data_writeback /dev/sda5</pre>
+    tune2fs -O journal_data_writeback /dev/sda5

@@ -20,15 +20,14 @@ categories:
   - SuSE
   - ubuntu
 ---
-Updating a SSD firmware might seem like a big step on linux, as the biggest audience for the ssd manifacturers are windows users.
+Updating a SSD firmware might seem like a big step on linux, as the biggest audience for the ssd manufacturers are windows users.
 
-This means that a lot of tooling and documentation is around on the internet explaing on how todo this on a windows based system.
+This means that a lot of tooling and documentation is around on the internet explaining on how todo this on a windows based system.
 
-In the case of OCZ the tool used to update the firmware is linux based, or at least there is a linux based version available. This tool can be used to update the ssd from (Ubuntu) linux, even if it is the primairy disk drive. The steps involved are simple:
+In the case of OCZ the tool used to update the firmware is linux based, or at least there is a linux based version available. This tool can be used to update the ssd from (Ubuntu) linux, even if it is the primary disk drive. The steps involved are simple:
 
-  1. Download the tool from OCZ http://www.ocztechnology.com/files/ssd\_tools/fwupd\_v2.12.05.tar.gz<a href="http://www.ocztechnology.com/files/ssd_tools/fwupd_v2.12.05.tar.gz" target="_self" title=""></a>
-  2. Unpack the tool: tar xfvz fwup*
-  3. Execute the tool as root: sudo ./linux[32|64]/fwupd
+  1. Download the tool from OCZ `wget http://www.ocztechnology.com/files/ssd_tools/fwupd_v2.12.05.tar.gz`
+  2. Unpack the tool: `tar xfvz fwup*`
+  3. Execute the tool as root: `sudo ./linux[32|64]/fwupd`
   4. Reboot the machine
 
-&nbsp;

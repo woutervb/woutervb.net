@@ -23,14 +23,15 @@ categories:
   - virtualenv
 ---
 On the internet it is easy to find several references on how to use [Jenkins-ci](http://jenkins-ci.org/) in combination with python.  
-But most of the blogs that you can find depend on an &#8216;older&#8217; module called SetEnv. This module does not exists anymore.
+But most of the blogs that you can find depend on an 'older' module called SetEnv. This module does not exists anymore.
 
 But the bright side of this all is, that there is a new module that can be used with the name [ShiningPanda Plugin](http://wiki.jenkins-ci.org/display/JENKINS/ShiningPanda+Plugin)  
-This plugin does allow you to make a virtualenv environment to install the dependent modules is e.g. using pip. The setup of this module is done by choosing &#8216;Virtualenv Builder&#8217; as the buildstep of the project.  
-Any code written in the &#8216;dialog box&#8217; below with the name: **Command** will be executed in the virtualenv environment. The commando&#8217;s that I issue are: 
+This plugin does allow you to make a virtualenv environment to install the dependent modules is e.g. using pip. The setup of this module is done by choosing `Virtualenv Builder` as the buildstep of the project.  
+Any code written in the `dialog box` below with the name: **Command** will be executed in the virtualenv environment. The commands that I issue are: 
 
-<pre><br /> pip install -r pip-requires.txt<br /> nosetests --with-xunit<br /></pre>
+    pip install -r pip-requires.txt
+    nosetests --with-xunit
 
 This does also mean that I include a file pip-requirements.txt in the version control software which lists all the modules that are needed for this project to work.  
-I hope that this information is helpfull for those that want to use the power of jenkins for python development.  
-Using nosetests with the &#8211;with-xunit means that a junit compatible xml file will be generated. This file can be parsed by jenkins when using _**/nosetests.xml_ as the junit input file in the Post-Build action step.
+I hope that this information is helpful for those that want to use the power of jenkins for python development.  
+Using `nosetests` with the `--with-xunit` means that a junit compatible xml file will be generated. This file can be parsed by jenkins when using `**/nosetests.xml` as the junit input file in the Post-Build action step.

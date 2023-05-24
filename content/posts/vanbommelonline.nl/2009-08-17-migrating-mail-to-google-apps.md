@@ -33,8 +33,8 @@ Well eventually it all is trivial, the quick steps are:
 
 In more details follow the steps below.
 
-First step is to subscibe to the google apps personal service. The following link should be of some help: <http://www.google.com/apps/intl/en/group/index.html>
+First step is to subscribe to the google apps personal service. The following link should be of some help: http://www.google.com/apps/intl/en/group/index.html
 
-The rest of the steps are excellently written on <http://www.hanselman.com/blog/MigratingAFamilyToGoogleAppsFromGmailThunderbirdOutlookAndOthersTheDefinitiveGuide.aspx> and so it is nonsense to rewrite the whole text.
+The rest of the steps are excellently written on http://www.hanselman.com/blog/MigratingAFamilyToGoogleAppsFromGmailThunderbirdOutlookAndOthersTheDefinitiveGuide.aspx and so it is nonsense to rewrite the whole text.
 
-One important advice is to disable imap access if not needed, and to ALWAYS ENABLE SSL. This is done via the Dashboard -> &#8216;Domain Settings&#8217; -> Checkbox enable SSL and &#8216;Save Changes&#8217;
+One important advice is to disable imap access if not needed, and to ALWAYS ENABLE SSL. This is done via the Dashboard -> 'Domain Settings' -> Checkbox enable SSL and 'Save Changes'

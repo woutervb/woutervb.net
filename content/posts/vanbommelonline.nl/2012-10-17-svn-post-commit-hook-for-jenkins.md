@@ -28,6 +28,28 @@ In that case you want te be sure that commits to branches / tags do not trigger 
 
 Below is an (yet untested) version of an commit hook that should take care of that. It will only trigger jenkins in the case of commits to a trunk subdirectory of a svn repo. 
 
-<pre brush:bash><br />#!/bin/bash<br /><br />REPOS="$1"<br />REV="$2"<br />UUID=`svnlook uuid $REPOS`<br />SERVER='http://localhost'<br />JENKINS_USER='jenkins'<br />JENKINS_PASSWORD='wachtwoord'<br /><br />svnlook dirs-changed -r $REV $REPOS | grep trunk | while read line<br />do<br />    /usr/bin/wget <br />        --auth-no-challenge <br />        --no-check-certificate <br />        --http-user=${JENKINS_USER} <br />        --http-password=${JENKINS_PASSWORD} <br />        --header "Content-Type:text/plain;charset=UTF-8" <br />        --post-data "`svnlook changed -r $REV $REPOS`" <br />        --output-document "-" <br />        --timeout=2 <br />        ${SERVER}/subversion/${UUID}/notifyCommit?rev=$REV<br />    [ $? -ne 0 ] && exit 1<br />done<br /></pre>
+    #!/bin/bash
+    
+    REPOS="$1"
+    REV="$2"
+    UUID=`svnlook uuid $REPOS`
+    SERVER='http://localhost'
+    JENKINS_USER='jenkins'
+    JENKINS_PASSWORD='wachtwoord'
+    
+    svnlook dirs-changed -r $REV $REPOS | grep trunk | while read line
+      do
+        /usr/bin/wget
+                --auth-no-challenge
+                --no-check-certificate
+                --http-user=${JENKINS_USER}
+                --http-password=${JENKINS_PASSWORD}
+                --header "Content-Type:text/plain;charset=UTF-8"
+                --post-data "`svnlook changed -r $REV $REPOS`"
+                --output-document "-"
+                --timeout=2
+                ${SERVER}/subversion/${UUID}/notifyCommit?rev=$REV
+        [ $? -ne 0 ] && exit 1
+    done
 
-This script does make use of authentication. To remove this, omit the &#8211;http- lines of the wget command.
+This script does make use of authentication. To remove this, omit the `--http-` lines of the wget command.

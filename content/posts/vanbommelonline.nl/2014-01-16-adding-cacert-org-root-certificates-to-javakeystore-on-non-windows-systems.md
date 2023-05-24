@@ -22,4 +22,61 @@ Especially since this procedure has to be repeated every java update. To easy th
 
 The script assumes that java is installed (somewhere) in the /usr directory and that the keytool command is in the active path. Please run this command as root, so that there will be no permission problems.
 
-<pre><br />#!/bin/sh -e<br /><br />check_result () {<br />  if [ $1 -ne 0 ] ; then<br />    echo "Command ended with failure, stopping"<br />    delete_tmp<br />    exit 1<br />  fi<br />}<br /><br />delete_tmp () {<br />  rm -r ${tmp_dir}<br />}<br /><br />update_keystore () {<br />  keystore=$1<br /><br />  # get listing of all keys<br />  keys=`keytool -list -keystore ${keystore} -storepass changeit | grep cacertclass`<br />  if [ "${keys}"x = ""x ] ; then<br />    echo "Could not find any cacert keys, updating keystore"<br />    keytool -keystore ${keystore} -storepass changeit -import -trustcacerts -v -alias cacertclass1 -file ${tmp_dir}/root.crt<br />    keytool -keystore ${keystore} -storepass changeit -import -trustcacerts -v -alias cacertclass3 -file ${tmp_dir}/class3.crt<br />  fi<br />}<br /><br />echo "This script will search the system for cacerts file"<br />echo "And if they are valid java keystores, it will check"<br />echo "and if needed update the keystore so that it will"<br />echo "contain the cacert root & class3 CA certificates"<br />echo ""<br /><br /># create a temp directory to store the downloaded certificates<br />tmp_dir=`mktemp -d`<br /><br />echo ""<br />echo "Downloading certificates from cacert"<br />wget -q -O ${tmp_dir}/root.crt http://www.cacert.org/certs/root.crt<br />check_result $? <br /><br />wget -q -O ${tmp_dir}/class3.crt http://www.cacert.org/certs/class3.crt<br />check_result $? <br /><br />echo ""<br />echo ""<br />echo "Searching the system (/usr) for cacerts file(s)"<br />keystores=`find /usr -name cacerts -type f -print`<br />check_result $? <br /><br />echo ""<br />echo ""<br /><br />for keystore in ${keystores} ; do<br />    update_keystore ${keystore}<br />done<br /><br />delete_tmp<br /></pre>
+    #!/bin/sh -e
+    
+    check_result () {
+      if [ $1 -ne 0 ] ; then
+        echo "Command ended with failure, stopping"
+        delete_tmp
+        exit 1
+      fi
+    }
+    
+    delete_tmp () {
+      rm -r ${tmp_dir}
+    }
+    
+    update_keystore () {
+      keystore=$1
+      
+      # get listing of all keys
+      keys=`keytool -list -keystore ${keystore} -storepass changeit | grep cacertclass`
+      if [ "${keys}"x = ""x ] ; then
+        echo "Could not find any cacert keys, updating keystore"
+        keytool -keystore ${keystore} -storepass changeit -import -trustcacerts -v -alias cacertclass1 -file ${tmp_dir}/root.crt
+        keytool -keystore ${keystore} -storepass changeit -import -trustcacerts -v -alias cacertclass3 -file ${tmp_dir}/class3.crt
+      fi
+    }
+    
+    echo "This script will search the system for cacerts file"
+    echo "And if they are valid java keystores, it will check"
+    echo "and if needed update the keystore so that it will"
+    echo "contain the cacert root & class3 CA certificates"
+    echo ""
+    
+    # create a temp directory to store the downloaded certificates
+    tmp_dir=`mktemp -d`
+
+    echo ""
+    echo "Downloading certificates from cacert"
+    
+    wget -q -O ${tmp_dir}/root.crt http://www.cacert.org/certs/root.crt
+    check_result $?
+    
+    wget -q -O ${tmp_dir}/class3.crt http://www.cacert.org/certs/class3.crt
+    check_result $?
+    
+    echo ""
+    echo ""
+    echo "Searching the system (/usr) for cacerts file(s)"
+    keystores=`find /usr -name cacerts -type f -print`
+    check_result $?
+    
+    echo ""
+    echo ""
+    
+    for keystore in ${keystores} ; do
+      update_keystore ${keystore}
+    done
+    
+    delete_tmp

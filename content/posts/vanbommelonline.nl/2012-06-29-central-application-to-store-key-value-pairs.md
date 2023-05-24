@@ -25,20 +25,20 @@ These key-value pairs are meant to be defined once in a hierarchie and have to p
 
 So if we take a simple tree, using reverse dns names we get something like this:
 
-  1. nl
-  2. &nbsp;vanbommelonline
-  3. &nbsp; hostname 
+    1. nl
+    2.  vanbommelonline
+    3.   hostname 
 
 At each of these levels I want to be able to define a parameter, which can be overwritten when the tree becomes more host specific.
 
 E.g. a key-value pair called dnsservers defined at 1 is global, but redefining this at 3 means that this host can have a host specific setting.
 
 Another requirement is that if a request is made for an host that does not exist no errors are produced, but the collection of defined key-value pairs up to the last defined element are returned.  
-So calling all key-value pairs for a host with the name: &#8220;www.vanbommelonline.nl&#8221;, which is not defined in the example above, will retun all key-value pairs defined at the level of &#8216;nl&#8217;, combined with those at &#8216;vanbommelonline&#8217;.
+So calling all key-value pairs for a host with the name: `www.vanbommelonline.nl`, which is not defined in the example above, will return all key-value pairs defined at the level of `nl`, combined with those at `vanbommelonline`.
 
 As key-value pair definitions are unique. It is possible to assign them at multiple locations in the tree.
 
 This whole project is written in Django and can be found on github at:  
 [https://github.com/woutervb/central_property.](https://github.com/woutervb/central_property)
 
-I hope that this project is usefull for more people.
+I hope that this project is useful for more people.

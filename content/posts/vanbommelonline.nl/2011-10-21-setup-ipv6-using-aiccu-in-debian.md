@@ -21,23 +21,30 @@ categories:
 With Debian it is relative easy to setup ipv6 using aiccu.
 
 This can be done using the following steps (assuming you already have an account at [www.sixxs.net](http://www.sixxs.net/)):  
-1) install aiccu
+1. install aiccu
 
-<pre>sudo apt-get install aiccu</pre>
+    ```
+    sudo apt-get install aiccu
+    ```
 
-2) edit de /etc/network/interfaces  
-add the following entries:
+2. edit de `/etc/network/interfaces` add the following entries:
 
-<pre>auto sixxs<br />iface sixxs inet6 manual<br />  up ip link set mtu 1480 dev $IFACE<br />  pre-up invoke-rc.d aiccu start<br />  post-down invoke-rc.d aiccu stop<br /></pre>
+    ```
+    auto sixxs
+    iface sixxs inet6 manual
+    up ip link set mtu 1480 dev $IFACE
+    pre-up invoke-rc.d aiccu start
+    post-down invoke-rc.d aiccu stop
+    ```
 
-<div>
-  3) disable the automatic start of aiccu</p> 
+3. disable the automatic start of aiccu
   
-  <pre>sudo update-rc.d aiccu disable</pre>
-</div>
+    ```
+    sudo update-rc.d aiccu disable
+    ```
 
-<div>
-  4) bring the interface up using the command</p> 
-  
-  <pre>sudo ifup sixxs</pre>
-</div>
+4. bring the interface up using the command
+
+    ```
+    sudo ifup sixxs
+    ```

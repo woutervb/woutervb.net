@@ -21,14 +21,20 @@ Radius authentication on a Nexus 5k (5548) using ldap as radius backend
 
 In the our current setup we are using radius with an ldap backup. Against this solution we found a way to configure the radius daemon in such a way that it is possible to gain admin rights. In this setup no changes to ldap where made.
 
-The trick to get this up and running is the followin:
+The trick to get this up and running is the following:
 
 1. In freeradius edit the default site, so that authorize looks like:
 
-<pre><br />   authorize { file ldap }<br /></pre>
+    ```
+    authorize { file ldap }
+    ```
 
 2. edit the file users to contain the following lines:
 
-<pre><br />DEFAULT<br />  Service-Type := Administrative-User,<br />  Cisco-AVPair += "shell:roles=network-admin"<br /></pre>
+    ```
+    DEFAULT
+    Service-Type := Administrative-User,
+    Cisco-AVPair += "shell:roles=network-admin"
+    ```
 
 Restarting the radius daemon now makes it possible for everybody that can authenticate to login and have admin privileges.

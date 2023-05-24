@@ -24,6 +24,6 @@ rm -r ${tmp}
 fc-cache -vf ~/.local/share/fonts
 ~~~~
 
-And now, use the following line in your ~/.Xresource file:
+And now, use the following line in your `~/.Xresource` file:
 
      URxvt*font: xft:ubuntu mono derivative powerline:pixelsize=12:antialias=true:hinting=true

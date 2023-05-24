@@ -22,7 +22,7 @@ categories:
 ---
 More then a year ago I wrote a small patch for pyOpenSSL.
 
-This patch makes it possible to compare the modulus of both the private key ande public key, in order to confirm a cryptographic match between them.  
+This patch makes it possible to compare the modulus of both the private key and a public key, in order to confirm a cryptographic match between them.  
 As I have not (yet) made some unit tests, this code is not in them main release.
 
 But as the code is in use in my companies systems, this blog will make it a bit more findable, and maybe more people are interested in this interface addition.

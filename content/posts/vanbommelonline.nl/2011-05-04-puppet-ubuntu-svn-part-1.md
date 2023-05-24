@@ -1,6 +1,6 @@
 ---
 id: 29
-title: 'Puppet &#038; ubuntu &#038; svn &#8211; part 1'
+title: 'Puppet & ubuntu & svn - part 1'
 date: 2011-05-04T13:29:00+00:00
 author: wouter
 layout: post
@@ -19,58 +19,99 @@ categories:
   - puppet
   - ubuntu
 ---
-This blog entry is meant as a quick lookup on how to setup an intial puppet environment on linux.  
-The goal is to have puppet installed in a client master relationship, in which the master configuration files are stored in svn. The client is, except for the initial certificate trust, completely automated. In this part the focus is on the central server setup. As a base os for the central master ubuntu (11.04) is used.  
-Initial step is to install a machine with Ubuntu 11.04 in a regular way. If this is a new step, please use one of the available manuals found on the internet.  
-Installation of the required software can be done using the following apt command:  
-sudo apt-get install puppetmaster-passenger subversion  
-Once the packages and the dependencies are installed a local svn repository can be created with the command, we make a world accessible directory for the purpose of this manual, in realworld scenario&#8217;s a better subversion setup should be used:
+This blog entry is meant as a quick lookup on how to setup an initial puppet environment on linux.
 
-<pre><br />sudo mkdir /subversion<br />sudo chmod 777 /subversion<br />svnadmin create /subversion</pre>
+The goal is to have puppet installed in a client master relationship, in which the master configuration files are stored in svn. The client is, except for the initial certificate trust, completely automated. In this part the focus is on the central server setup. As a base os for the central master ubuntu (11.04) is used.
+
+Initial step is to install a machine with Ubuntu 11.04 in a regular way. If this is a new step, please use one of the available manuals found on the internet.
+
+Installation of the required software can be done using the following apt command:  
+
+    sudo apt-get install puppetmaster-passenger subversion  
+
+Once the packages and the dependencies are installed a local svn repository can be created with the command, we make a world accessible directory for the purpose of this manual, in realworld scenario's a better subversion setup should be used:
+
+    sudo mkdir /subversion
+    sudo chmod 777 /subversion
+    svnadmin create /subversion
 
 Now we have this repository we van import the default puppet configuration as a starting point.
 
-<pre><br />cd /etc<br />sudo svn import puppet file://localhost/subversion</pre>
+    cd /etc
+    sudo svn import puppet file://localhost/subversion
 
 Make a copy of the current directory
 
-<pre><br />cd /etc<br />sudo mv puppet puppet.old</pre>
+    cd /etc
+    sudo mv puppet puppet.old
 
-And checkout the &#8216;latest&#8217; version from svn
+And checkout the 'latest' version from svn
 
-<pre><br />cd /etc<br />sudo svn checkout file://localhost/subversion/puppet</pre>
+    cd /etc
+    sudo svn checkout file://localhost/subversion/puppet
 
 Now create a crontab entry like the one below to do an update of the tree every minute
 
-<pre><br />* * * * * root cd /etc && svn checkout file://localhost/subversion/puppet &gt; /dev/null 2&gt;&1</pre>
+    * * * * * root cd /etc && svn checkout file://localhost/subversion/puppet > /dev/null 2>&1
 
 As a regular user you can now checkout the same project at a convenient location e.g. your home directory.
 
-<pre><br />cd ~<br />svn checkout file://localhost/subversion/puppet</pre>
+    cd ~
+    svn checkout file://localhost/subversion/puppet
 
 The first thing(s) that have to be done is add some directories and change some configuration parameters in order for the installation to work. The steps involved are:
 
-<pre><br />cd ~/puppet<br />for dir in files plugins templates ; do mkdir ${dir} ; done<br />svn add *<br />vi fileserver.conf</pre>
 
-edit add a section called [modules]  
+    cd ~/puppet
+    for dir in files plugins templates ; do mkdir ${dir} ; done
+    svn add *
+    vi fileserver.conf
+
+edit add a section called `[modules]`
 Now we are ready commit our first version to the revision control
 
-<pre><br />cd ~/puppet<br />svn commit -m "Putting directory structure in place"</pre>
+    cd ~/puppet
+    svn commit -m "Putting directory structure in place"
 
 To add the first recipe proceed with the following steps:
 
-<pre><br />cd ~/puppet/manifests<br />vi site.pp<br />import "nodes"<br /><br />File { backup =&gt; main }<br />filebucket { main: server =&gt; "puppet"; } # replace puppet with fqdn of the puppet server<br /><br />vi nodes.pp<br />node 'default' {<br />   include test<br />}</pre>
+    cd ~/puppet/manifests
+    
+`vi site.pp`
+    
+    import "nodes"
+    
+    File { backup => main }
+    filebucket { main: server => "puppet"; } # replace puppet with fqdn of the puppet server
+    
+    
+`vi nodes.pp`
+
+    node 'default' {
+      include test
+    }
 
 Add the files to svn
 
-<pre><br />cd ~/puppet/manifests<br />svn add *</pre>
+    cd ~/puppet/manifests
+    svn add *
 
 Create the first recipe called test
 
-<pre><br />cd ~/puppet/modules<br />mkdir -p test/manifests<br />vi test/manifests/init.pp<br />class test {<br />   warn { 'do something usefull' }<br />}<br />svn add test</pre>
+    cd ~/puppet/modules
+    mkdir -p test/manifests
+    
+`vi test/manifests/init.pp`
+
+    class test {
+      warn { 'do something useful' }
+    }
+
+`svn add test`
 
 And commit them all to the repository
 
-<pre><br />cd ~/puppet<br />svn commit -m "first recipe for default nodes"</pre>
+    cd ~/puppet
+    svn commit -m "first recipe for default nodes"
 
 Within one minute the crontab will do a checkout of these changes and once a remote puppet client connects it will process the changed data.
