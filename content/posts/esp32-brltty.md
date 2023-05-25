@@ -2,6 +2,7 @@
 title: "Esp32 & brltty"
 date: 2023-05-25T15:42:20+10:00
 draft: false
+tags: ["esp32", "embedded", "debugging"]
 ---
 
 Having recently obtained a small esp32 based gadget (Holocube, more on that in another post). I obviously wanted to see if I could at least get some of the details via the `esptool.py`.
